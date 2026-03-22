@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bankapp-deployment
+  labels:
+    app: bankapp
+  namespace: bankapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: bankapp
+  template:
+    metadata:
+      labels:
+        app: bankapp
+    spec:
+      containers:
+      - name: bankapp
+        image: shivkumarkonnuri/ai-bank-app:latest
+        ports:
+        - containerPort: 8080
+        envFrom:
+          - configMapRef:
+              name: bankapp-cm
+
+          - secretRef:
+              name: bankapp-secret
+
+
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 30
+          failureThreshold: 15
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          failureThreshold: 5
+          

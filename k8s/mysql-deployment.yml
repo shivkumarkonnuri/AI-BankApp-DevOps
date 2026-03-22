@@ -28,14 +28,35 @@ spec:
                 name: bankapp-cm
                 key: MYSQL_DATABASE
 
+          - name: MYSQL_USER
+            valueFrom:
+              configMapKeyRef:
+                name: bankapp-cm
+                key: MYSQL_USER
+
           - name: MYSQL_ROOT_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: bankapp-secret
                 key: MYSQL_ROOT_PASSWORD
-          
+
           - name: MYSQL_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: bankapp-secret
                 key: MYSQL_PASSWORD
+  
+        volumeMounts:
+          - name: mysql-storage
+            mountPath: /var/lib/mysql
+
+        readinessProbe:
+          exec: 
+            command: ["mysqladmin", "ping", "-h", "localhost"]
+          initialDelaySeconds: 15
+          periodSeconds: 10
+
+      volumes:
+        - name: mysql-storage
+          persistentVolumeClaim:
+            claimName: mysql-pvc
