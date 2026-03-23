@@ -17,7 +17,8 @@ spec:
     spec:
       containers:
       - name: bankapp
-        image: shivkumarkonnuri/ai-bank-app:latest
+        image: shivkumarkonnuri/ai-bankapp:k8s
+        imagePullPolicy: Never
         ports:
         - containerPort: 8080
         envFrom:

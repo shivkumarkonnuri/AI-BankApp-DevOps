@@ -8,4 +8,4 @@ data:
   MYSQL_HOST: mysql-service
   MYSQL_PORT: "3306"
   MYSQL_USER: bankapp_dbuser
-  OLLAMA_URL: http://ollama:11434
+  OLLAMA_URL: http://ollama-service:11434
