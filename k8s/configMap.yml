@@ -7,5 +7,5 @@ data:
   MYSQL_DATABASE: bankapp_db
   MYSQL_HOST: mysql-service
   MYSQL_PORT: "3306"
-  MYSQL_USER: bankapp_dbuser
+  MYSQL_USER: root
   OLLAMA_URL: http://ollama-service:11434
